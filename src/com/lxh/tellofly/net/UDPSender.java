@@ -34,17 +34,15 @@ public class UDPSender
      */    
     public void sendMsg(String msg)
     {
-        try
-        {
+    	try {
             byte [] msgdata = msg.getBytes();
             DatagramPacket p = new DatagramPacket(msgdata, msgdata.length, address, port);
             //System.out.println("send:" + msg);
             server.send(p);
             //server.close();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
     
     /**
