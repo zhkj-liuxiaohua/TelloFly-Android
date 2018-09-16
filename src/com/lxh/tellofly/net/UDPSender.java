@@ -18,7 +18,7 @@ public class UDPSender
     public UDPSender() {
         try
         {
-            server = new DatagramSocket();
+            server = Sockets.getSocket(port); //new DatagramSocket();
             address = InetAddress.getByName(Constant.GROUP_IP);   // dest IP
         } catch (Exception e)
         {
@@ -75,7 +75,8 @@ public class UDPSender
      * @date 2013-12-19        
      */
     public void destroy() {
-        server.close();
+        //server.close();
+    	Sockets.close(port);
         server = null;
     }
 }

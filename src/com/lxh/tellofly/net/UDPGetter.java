@@ -8,7 +8,7 @@ import java.net.InetAddress;
 /**************************************************
  * UDPGetter<br>
  * function: 消息监听�?
- * @author 刘小�?
+ * @author 刘小华
  * @date 2013-12-16  
  *************************************************/
 public class UDPGetter implements Runnable
@@ -33,15 +33,12 @@ public class UDPGetter implements Runnable
     {
         try
         {
-            //InetAddress groupIP = InetAddress.getByName(Constant.GROUP_IP);
-            getter = new DatagramSocket(port);
-            //getter.joinGroup(groupIP);
-            //getter.setSoTimeout(3000); // 3s监听�?�?
+            getter = Sockets.getSocket(port);
         } catch (Exception e)
         {
             e.printStackTrace();    // 无效网络
             if (null != getter) {
-                getter.close();
+            	Sockets.close(port);
                 getter = null;
             }
         }
@@ -74,14 +71,16 @@ public class UDPGetter implements Runnable
                         try
                         {
                             //InetAddress groupIP = InetAddress.getByName(Constant.GROUP_IP);
-                            getter = new DatagramSocket(port);
+                            //getter = new DatagramSocket(port);
                             //getter.joinGroup(groupIP);
                             //getter.setSoTimeout(3000); // 3s监听�?�?
+                        	getter = Sockets.getSocket(port);
                         } catch (Exception e)
                         {
                             //e.printStackTrace();    // 无效网络
                             if (null != getter) {
-                                getter.close();
+                                //getter.close();
+                            	Sockets.close(port);
                                 getter = null;
                             }
                         }
@@ -94,21 +93,23 @@ public class UDPGetter implements Runnable
         }
         if (null != getter)
         {
-            getter.close();
-            getter = null;
+            //getter.close();
+        	Sockets.close(port);
+        	getter = null;
         }
     }
     
     /**
      * function:终止监听
-     * @author 刘小�?
+     * @author 刘小华
      * @date 2013-12-16
      */    
     public void stop() {
         stopped = true;
         if (null != getter)
         {
-            getter.close();
+            //getter.close();
+        	Sockets.close(port);
             getter = null;
         }
     }
@@ -123,16 +124,16 @@ public class UDPGetter implements Runnable
 
     /**************************************************
      * function: 消息接收监听接口
-     * @author 刘小�?
+     * @author 刘小华
      * @date 2013-12-16  
      *************************************************/
     public interface UDPInfoListener
     {
         /**
          * function:消息接收监听触发
-         * @author 刘小�?
+         * @author 刘小华
          * @date 2013-12-16       
-         * @param msg - 传入的消�?
+         * @param msg - 传入的消息
          */
         public void onInfoReciver(InetAddress ip, String msg);
     }

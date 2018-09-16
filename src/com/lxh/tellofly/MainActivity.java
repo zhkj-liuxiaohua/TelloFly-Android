@@ -6,7 +6,6 @@ import java.net.InetAddress;
 import com.lxh.tellofly.net.Constant;
 import com.lxh.tellofly.net.P2PLoader;
 import com.lxh.tellofly.net.UDPGetter.UDPInfoListener;
-import com.lxh.telloservice.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -87,8 +86,7 @@ public class MainActivity extends Activity {
 //					} catch (InterruptedException e) {
 //						e.printStackTrace();
 //					}
-				}
-				if (Constant.ERROR_MSG.equals(msg)) {
+				} else if (Constant.ERROR_MSG.equals(msg)) {
 					printTxt("命令模式失败");
 				} else {
 					printTxt("IP=" + ip.toString() + " msg=" + msg);
@@ -100,18 +98,21 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				try {
-					runTakeOff.run();
-					Thread.sleep(7000);
-					runUp.run();
-					Thread.sleep(5000);
+//					runTakeOff.run();
+//					Thread.sleep(7000);
+//					runUp.run();
+//					Thread.sleep(5000);
 					for (int i = 0; i < 2; i++) {
-						runRight.run();
+//						runRight.run();
+//						Thread.sleep(7000);
+//						runFlip.run();
+//						Thread.sleep(7000);
+						runTakeOff.run();
 						Thread.sleep(7000);
-						runFlip.run();
+						runLand.run();
 						Thread.sleep(7000);
 					}
 					
-					runLand.run();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
